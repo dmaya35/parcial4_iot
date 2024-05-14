@@ -9,7 +9,8 @@ const DataTable = ({ nodeData }) => {
           <tr>
             <th>Fecha y Hora</th>
             <th>Temperatura (°C)</th>
-            <th>Estado de Temperatura</th>
+            <th>Humedad del suelo (%)</th>
+            <th>Estado del suelo</th>
             <th>Humedad (%)</th>
             <th>Estado de Humedad</th>
           </tr>
@@ -19,9 +20,9 @@ const DataTable = ({ nodeData }) => {
             <tr key={index}>
               <td>{new Date(dataItem.Fecha_Hora).toLocaleString()}</td>
               <td>{dataItem.Temperatura}</td>
-              <td>{dataItem.Estado_Temperatura}</td>
+              <td>{dataItem.Humedad_suelo}</td>
               <td>{dataItem.Humedad}</td>
-              <td>{dataItem.Estado_Humedad}</td>
+              <td>{dataItem.Estado_humedad}</td>
             </tr>
           ))}
         </tbody>
