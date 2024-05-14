@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import icono from "./img/icono.png";
 
 const Login = ({ setUserRole, setUserHome }) => {
   const [username, setUsername] = useState("");
@@ -33,11 +34,18 @@ const Login = ({ setUserRole, setUserHome }) => {
 
   return (
     <CenteredContainer>
+      <StyledImage src={icono} alt="Icono" />
+      <CustomH3>
+        Este es el parcial 4 sobre el Riego de plantas tipo vivero. Desarrollado por Diego Maya
+        Perea. En este parcial se manejaron dos nodos y usuarios; uno de ellos real (capturado por el esp32) y el otro simulado por otro cliente como mqttx. También un usuario admin, el cual puede acceder
+        a la informacion general de los usuarios.
+      </CustomH3>
+      <Space /> {/* Espacio adicional */}
       <h2>Iniciar sesión</h2>
       {error && <ErrorMessage>{error}</ErrorMessage>}
       <LoginForm onSubmit={handleSubmit}>
         <FormField>
-          <label htmlFor="username">Nombre de usuario:</label>
+          <label htmlFor="username">Usuario:</label>
           <input
             type="text"
             id="username"
@@ -67,6 +75,26 @@ const CenteredContainer = styled.div`
   align-items: center;
   justify-content: center;
   height: 100vh;
+`;
+
+const StyledImage = styled.img`
+  width: 150px; /* Tamaño deseado de la imagen */
+  height: auto; /* Para mantener la proporción */
+  margin-bottom: 20px; /* Espacio adicional después de la imagen */
+`;
+
+const CustomH3 = styled.h3`
+  font-family: "Arial", sans-serif; /* Cambiar la fuente del texto */
+  font-size: 16px; /* Cambiar el tamaño de fuente del texto */
+  font-weight: normal; /* Quitar el negrita del texto */
+  line-height: 1.6; /* Ajustar el espaciado entre líneas */
+  text-align: center;
+  margin-bottom: 20px; /* Espacio adicional después del texto */
+  color: #555; /* Cambiar el color del texto */
+`;
+
+const Space = styled.div`
+  height: 20px;
 `;
 
 const LoginForm = styled.form`

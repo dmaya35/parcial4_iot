@@ -6,28 +6,48 @@ import { useNavigate } from "react-router-dom";
 
 const HomeUser = ({ userHome }) => {
   const [temperatura, setTemperatura] = useState(0);
-  const [temperaturaEstado, setTemperaturaEstado] = useState("Desconocido");
+  const [humedad_suelo, setHumedad_suelo] = useState(0);
+  const [estado_suelo, setEstado_suelo] = useState("Desconocido");
   const [humedad, setHumedad] = useState(0);
-  const [humedadEstado, setHumedadEstado] = useState("Desconocido");
+  const [estado_humedad, setEstado_humedad] = useState("Desconocido");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Obtener los últimos datos de temperatura
-        const temperaturaResponse = await axios.get(`http://localhost:3030/datos/${userHome}`);
+        const temperaturaResponse = await axios.get(
+          `http://localhost:3030/datos/${userHome}`
+        );
         if (temperaturaResponse.data && temperaturaResponse.data.length > 0) {
           const temperaturaData = temperaturaResponse.data[0];
           setTemperatura(temperaturaData.Temperatura || 0);
-          setTemperaturaEstado(temperaturaData.Estado_Temperatura || "Desconocido");
         }
 
-        // Obtener los últimos datos de humedad
-        const humedadResponse = await axios.get(`http://localhost:3030/datos/${userHome}`);
-        if (humedadResponse.data && humedadResponse.data.length > 0) {
+        // Obtener los últimos datos de la humedad del suelo
+        const humedad_sueloResponse = await axios.get(
+          `http://localhost:3030/datos/${userHome}`
+        );
+        if (
+          humedad_sueloResponse.data &&
+          humedad_sueloResponse.data.length > 0
+        ) {
+          const humedad_sueloData = humedad_sueloResponse.data[0];
+          setHumedad_suelo(humedad_sueloData.Humedad_suelo || 0);
+          setEstado_suelo(humedad_sueloData.Estado_suelo || "Desconocido");
+        }
+
+        // Obtener los últimos datos de la humedad 
+        const humedadResponse = await axios.get(
+          `http://localhost:3030/datos/${userHome}`
+        );
+        if (
+          humedadResponse.data &&
+          humedadResponse.data.length > 0
+        ) {
           const humedadData = humedadResponse.data[0];
           setHumedad(humedadData.Humedad || 0);
-          setHumedadEstado(humedadData.Estado_Humedad || "Desconocido");
+          setEstado_humedad(humedadData.Estado_humedad || "Desconocido");
         }
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -47,7 +67,7 @@ const HomeUser = ({ userHome }) => {
   return (
     <Container>
       <LogoutButton onClick={handleLogout}>Cerrar sesión</LogoutButton>
-      <Title>Camion # {userHome}</Title>
+      <Title>Cliente # {userHome}</Title>
       <ContentWrapper>
         <Section>
           <InfoLabel>Temperatura:</InfoLabel>
@@ -61,7 +81,20 @@ const HomeUser = ({ userHome }) => {
               endColor="#FF5733"
             />
           </SpeedometerWrapper>
-          <InfoValue>Estado: {temperaturaEstado}</InfoValue>
+        </Section>
+        <Section>
+          <InfoLabel>Humedad del suelo:</InfoLabel>
+          <SpeedometerWrapper>
+            <ReactSpeedometer
+              maxValue={100}
+              value={humedad_suelo}
+              needleColor="#FF5733"
+              startColor="#FF5733"
+              segments={5}
+              endColor="#FF5733"
+            />
+          </SpeedometerWrapper>
+          <InfoValue>Estado: {estado_suelo}</InfoValue>
         </Section>
         <Section>
           <InfoLabel>Humedad:</InfoLabel>
@@ -75,7 +108,7 @@ const HomeUser = ({ userHome }) => {
               endColor="#007BFF"
             />
           </SpeedometerWrapper>
-          <InfoValue>Estado: {humedadEstado}</InfoValue>
+          <InfoValue>Estado: {estado_humedad}</InfoValue>
         </Section>
       </ContentWrapper>
     </Container>
