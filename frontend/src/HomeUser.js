@@ -5,49 +5,19 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const HomeUser = ({ userHome }) => {
-  const [temperatura, setTemperatura] = useState(0);
-  const [humedad_suelo, setHumedad_suelo] = useState(0);
-  const [estado_suelo, setEstado_suelo] = useState("Desconocido");
-  const [humedad, setHumedad] = useState(0);
-  const [estado_humedad, setEstado_humedad] = useState("Desconocido");
+  const [sensorData, setSensorData] = useState({}); // Inicializar el estado sensorData como un objeto vacío
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Obtener los últimos datos de temperatura
-        const temperaturaResponse = await axios.get(
+        const response = await axios.get(
           `http://localhost:3030/datos/${userHome}`
         );
-        if (temperaturaResponse.data && temperaturaResponse.data.length > 0) {
-          const temperaturaData = temperaturaResponse.data[0];
-          setTemperatura(temperaturaData.Temperatura || 0);
-        }
 
-        // Obtener los últimos datos de la humedad del suelo
-        const humedad_sueloResponse = await axios.get(
-          `http://localhost:3030/datos/${userHome}`
-        );
-        if (
-          humedad_sueloResponse.data &&
-          humedad_sueloResponse.data.length > 0
-        ) {
-          const humedad_sueloData = humedad_sueloResponse.data[0];
-          setHumedad_suelo(humedad_sueloData.Humedad_suelo || 0);
-          setEstado_suelo(humedad_sueloData.Estado_suelo || "Desconocido");
-        }
-
-        // Obtener los últimos datos de la humedad 
-        const humedadResponse = await axios.get(
-          `http://localhost:3030/datos/${userHome}`
-        );
-        if (
-          humedadResponse.data &&
-          humedadResponse.data.length > 0
-        ) {
-          const humedadData = humedadResponse.data[0];
-          setHumedad(humedadData.Humedad || 0);
-          setEstado_humedad(humedadData.Estado_humedad || "Desconocido");
+        if (response.data && response.data.length > 0) {
+          const latestData = response.data.slice(-1)[0]; // Obtener el último registro
+          setSensorData(latestData); // Asignar el último registro al estado sensorData
         }
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -74,7 +44,7 @@ const HomeUser = ({ userHome }) => {
           <SpeedometerWrapper>
             <ReactSpeedometer
               maxValue={100}
-              value={temperatura}
+              value={sensorData.temperatura || 0} // Asignar el valor de temperatura del estado sensorData
               needleColor="#FF5733"
               startColor="#FF5733"
               segments={5}
@@ -87,28 +57,28 @@ const HomeUser = ({ userHome }) => {
           <SpeedometerWrapper>
             <ReactSpeedometer
               maxValue={100}
-              value={humedad_suelo}
+              value={sensorData.humedad_suelo || 0} // Asignar el valor de humedad del suelo del estado sensorData
               needleColor="#FF5733"
               startColor="#FF5733"
               segments={5}
               endColor="#FF5733"
             />
           </SpeedometerWrapper>
-          <InfoValue>Estado: {estado_suelo}</InfoValue>
+          <InfoValue>Estado: {sensorData.estado_suelo}</InfoValue>
         </Section>
         <Section>
           <InfoLabel>Humedad:</InfoLabel>
           <SpeedometerWrapper>
             <ReactSpeedometer
               maxValue={100}
-              value={humedad}
+              value={sensorData.humedad || 0} // Asignar el valor de humedad del estado sensorData
               needleColor="#007BFF"
               startColor="#007BFF"
               segments={5}
               endColor="#007BFF"
             />
           </SpeedometerWrapper>
-          <InfoValue>Estado: {estado_humedad}</InfoValue>
+          <InfoValue>Estado: {sensorData.estado_humedad}</InfoValue>
         </Section>
       </ContentWrapper>
     </Container>
