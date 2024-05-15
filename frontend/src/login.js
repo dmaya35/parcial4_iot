@@ -36,6 +36,13 @@ const Login = ({ setUserRole, setUserHome }) => {
     <CenteredContainer>
       <Title>Inicio de sesión</Title>
       <StyledImage src={lockIcon} alt="Ícono de candado" />
+      <CustomH3>
+        Este es el parcial 4 sobre el Riego de plantas tipo vivero. Desarrollado
+        por Diego Maya Perea. En este parcial se manejaron dos nodos y usuarios; <br></br>
+        uno de ellos real (capturado por el esp32) y el otro simulado por otro
+        cliente como mqttx. También un usuario admin, el cual puede acceder a la
+        informacion general de los usuarios.
+      </CustomH3>
       <LoginForm onSubmit={handleSubmit}>
         <FormField>
           <label htmlFor="username">Usuario:</label>
@@ -80,6 +87,15 @@ const StyledImage = styled.img`
   width: 150px; /* Tamaño del ícono */
   height: auto; /* Para mantener la proporción */
   margin-bottom: 20px; /* Espacio adicional después del ícono */
+`;
+
+const CustomH3 = styled.h3`
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #555;
 `;
 
 const LoginForm = styled.form`
