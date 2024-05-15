@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const HomeUser = ({ userHome }) => {
-  const [sensorData, setSensorData] = useState({}); // Inicializar el estado sensorData como un objeto vacío
+  const [sensorData, setSensorData] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -16,8 +16,8 @@ const HomeUser = ({ userHome }) => {
         );
 
         if (response.data && response.data.length > 0) {
-          const latestData = response.data.slice(-1)[0]; // Obtener el último registro
-          setSensorData(latestData); // Asignar el último registro al estado sensorData
+          const latestData = response.data.slice(-1)[0];
+          setSensorData(latestData);
         }
       } catch (error) {
         console.error("Error al obtener los datos:", error);
@@ -26,12 +26,12 @@ const HomeUser = ({ userHome }) => {
 
     fetchData();
 
-    const intervalId = setInterval(fetchData, 5000); // Intervalo de actualización cada 5 segundos
+    const intervalId = setInterval(fetchData, 5000);
     return () => clearInterval(intervalId);
   }, [userHome]);
 
   const handleLogout = () => {
-    navigate("/"); // Redirigir al usuario a la página de inicio de sesión
+    navigate("/");
   };
 
   return (
@@ -44,11 +44,11 @@ const HomeUser = ({ userHome }) => {
           <SpeedometerWrapper>
             <ReactSpeedometer
               maxValue={100}
-              value={sensorData.temperatura || 0} // Asignar el valor de temperatura del estado sensorData
+              value={sensorData.temperatura || 0}
               needleColor="#FF5733"
-              startColor="#FF5733"
+              startColor="#FFD700"
               segments={5}
-              endColor="#FF5733"
+              endColor="#FFD700"
             />
           </SpeedometerWrapper>
         </Section>
@@ -57,11 +57,11 @@ const HomeUser = ({ userHome }) => {
           <SpeedometerWrapper>
             <ReactSpeedometer
               maxValue={100}
-              value={sensorData.humedad_suelo || 0} // Asignar el valor de humedad del suelo del estado sensorData
+              value={sensorData.humedad_suelo || 0}
               needleColor="#FF5733"
-              startColor="#FF5733"
+              startColor="#87CEEB"
               segments={5}
-              endColor="#FF5733"
+              endColor="#87CEEB"
             />
           </SpeedometerWrapper>
           <InfoValue>Estado: {sensorData.estado_suelo}</InfoValue>
@@ -71,11 +71,11 @@ const HomeUser = ({ userHome }) => {
           <SpeedometerWrapper>
             <ReactSpeedometer
               maxValue={100}
-              value={sensorData.humedad || 0} // Asignar el valor de humedad del estado sensorData
+              value={sensorData.humedad || 0}
               needleColor="#007BFF"
-              startColor="#007BFF"
+              startColor="#32CD32"
               segments={5}
-              endColor="#007BFF"
+              endColor="#32CD32"
             />
           </SpeedometerWrapper>
           <InfoValue>Estado: {sensorData.estado_humedad}</InfoValue>
@@ -86,7 +86,7 @@ const HomeUser = ({ userHome }) => {
 };
 
 const Container = styled.div`
-  background-color: #e6f2ff;
+  background-color: #f0f0f0;
   padding: 20px;
   height: 100vh;
   overflow-y: auto;
@@ -121,18 +121,22 @@ const Section = styled.div`
 
 const InfoLabel = styled.p`
   font-weight: bold;
-  margin-bottom: 8px;
-  color: black;
+  margin-bottom: 10px;
+  color: #343a40;
 `;
 
 const InfoValue = styled.p`
   font-size: 18px;
+  color: #555;
+  margin-bottom: 20px;
+  margin-top: -100px;
 `;
 
 const SpeedometerWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 10px;
 `;
 
 export default HomeUser;
