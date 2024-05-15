@@ -34,14 +34,8 @@ const Login = ({ setUserRole, setUserHome }) => {
 
   return (
     <CenteredContainer>
+      <Title>Inicio de sesión</Title>
       <StyledImage src={lockIcon} alt="Ícono de candado" />
-      <CustomH3>
-        Este es el parcial 4 sobre el Riego de plantas tipo vivero. Desarrollado
-        por Diego Maya Perea. En este parcial se manejaron dos nodos y usuarios;
-        uno de ellos real (capturado por el esp32) y el otro simulado por otro
-        cliente como mqttx. También un usuario admin, el cual puede acceder a la
-        informacion general de los usuarios.
-      </CustomH3>
       <LoginForm onSubmit={handleSubmit}>
         <FormField>
           <label htmlFor="username">Usuario:</label>
@@ -61,7 +55,7 @@ const Login = ({ setUserRole, setUserHome }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </FormField>
-        <SubmitButton type="submit">Iniciar sesión</SubmitButton>
+        <StyledButton type="submit">Iniciar sesión</StyledButton>
         {error && <ErrorMessage>{error}</ErrorMessage>}
       </LoginForm>
     </CenteredContainer>
@@ -76,20 +70,16 @@ const CenteredContainer = styled.div`
   height: 100vh;
 `;
 
-const StyledImage = styled.img`
-  width: 170px; /* Tamaño del ícono */
-  height: auto; /* Para mantener la proporción */
-  margin-bottom: 20px; /* Espacio adicional después del ícono */
+const Title = styled.h2`
+  font-family: "Roboto", sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
 `;
 
-const CustomH3 = styled.h3`
-  font-family: "Arial", sans-serif;
-  font-size: 16px;
-  font-weight: normal;
-  line-height: 1.6;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #555;
+const StyledImage = styled.img`
+  width: 150px; /* Tamaño del ícono */
+  height: auto; /* Para mantener la proporción */
+  margin-bottom: 20px; /* Espacio adicional después del ícono */
 `;
 
 const LoginForm = styled.form`
@@ -120,9 +110,9 @@ const FormField = styled.div`
   }
 `;
 
-const SubmitButton = styled.button`
+const StyledButton = styled.button`
   padding: 12px;
-  background-color: #007bff;
+  background-color: #9661ff; /* Color morado suave */
   color: white;
   border: none;
   border-radius: 5px;
@@ -130,7 +120,7 @@ const SubmitButton = styled.button`
   width: 100%;
   font-size: 16px;
   &:hover {
-    background-color: #0056b3;
+    background-color: #7c3dff; /* Cambio de tono al hacer hover */
   }
 `;
 
