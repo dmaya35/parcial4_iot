@@ -37,7 +37,7 @@ const HomeUser = ({ userHome }) => {
   return (
     <Container>
       <LogoutButton onClick={handleLogout}>Cerrar sesión</LogoutButton>
-      <Title>Cliente # {userHome}</Title>
+      <Title>Cliente {userHome}</Title>
       <ContentWrapper>
         <Section>
           <InfoLabel>Temperatura:</InfoLabel>
@@ -88,7 +88,6 @@ const HomeUser = ({ userHome }) => {
 const Container = styled.div`
   background-color: #e6f2ff;
   padding: 20px;
-  font-family: Arial, sans-serif;
   height: 100vh;
   overflow-y: auto;
 `;
@@ -137,4 +136,3 @@ const SpeedometerWrapper = styled.div`
 `;
 
 export default HomeUser;
-

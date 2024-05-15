@@ -3,37 +3,32 @@ import styled from "styled-components";
 
 const DataTable = ({ nodeData }) => {
   return (
-    <Wrapper>
-      <Table>
-        <thead>
-          <tr>
-            <th>Fecha y Hora</th>
-            <th>Temperatura (°C)</th>
-            <th>Humedad del suelo (%)</th>
-            <th>Estado del suelo</th>
-            <th>Humedad (%)</th>
-            <th>Estado de Humedad</th>
+    <Table>
+      <thead>
+        <tr>
+          <th>Temperatura</th>
+          <th>Humedad Suelo</th>
+          <th>Humedad</th>
+          <th>Estado Suelo</th>
+          <th>Estado Humedad</th>
+          <th>Fecha y Hora</th>
+        </tr>
+      </thead>
+      <tbody>
+        {nodeData.map((item, index) => (
+          <tr key={index}>
+            <td>{item.temperatura}</td>
+            <td>{item.humedad_suelo}</td>
+            <td>{item.humedad}</td>
+            <td>{item.estado_suelo}</td>
+            <td>{item.estado_humedad}</td>
+            <td>{item.fecha_hora}</td>
           </tr>
-        </thead>
-        <tbody>
-          {nodeData.map((dataItem, index) => (
-            <tr key={index}>
-              <td>{new Date(dataItem.Fecha_Hora).toLocaleString()}</td>
-              <td>{dataItem.Temperatura}</td>
-              <td>{dataItem.Humedad_suelo}</td>
-              <td>{dataItem.Humedad}</td>
-              <td>{dataItem.Estado_humedad}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </Wrapper>
+        ))}
+      </tbody>
+    </Table>
   );
 };
-
-const Wrapper = styled.div`
-  margin-bottom: 20px;
-`;
 
 const Table = styled.table`
   width: 100%;
@@ -41,9 +36,13 @@ const Table = styled.table`
 
   th,
   td {
-    padding: 8px;
     border: 1px solid #ddd;
+    padding: 8px;
     text-align: center;
+  }
+
+  th {
+    background-color: #f2f2f2;
   }
 `;
 
