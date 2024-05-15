@@ -17,7 +17,9 @@ const HomeAdmin = () => {
     try {
       const response = await axios.get(`http://localhost:3030/datos/${nodeId}`);
       // Ordenar los datos por fecha y hora en orden descendente
-      const sortedData = response.data.sort((a, b) => new Date(b.fecha_hora) - new Date(a.fecha_hora));
+      const sortedData = response.data.sort(
+        (a, b) => new Date(b.fecha_hora) - new Date(a.fecha_hora)
+      );
       // Tomar los primeros cinco registros
       const latestData = sortedData.slice(0, 5);
       setNodeData(latestData);
@@ -35,7 +37,7 @@ const HomeAdmin = () => {
   };
 
   const handleLogout = () => {
-    navigate("/"); // Redirigir al usuario a la página de inicio de sesión
+    navigate("/");
   };
 
   return (
@@ -77,6 +79,7 @@ const Container = styled.div`
   padding: 20px;
   height: 100vh;
   overflow-y: auto;
+  background-color: #e6f2ff; /* Utilizar el mismo fondo que en HomeUser */
 `;
 
 const Title = styled.h2`

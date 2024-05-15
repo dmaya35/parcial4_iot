@@ -43,6 +43,7 @@ const Table = styled.table`
 
   th {
     background-color: #f2f2f2;
+    color: #007bff; /* Color del encabezado */
   }
 `;
 
